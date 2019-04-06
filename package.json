@@ -1,27 +1,28 @@
 {
-  "name": "@holmok/db",
+  "name": "convenience-store",
   "version": "1.0.0",
-  "description": "a node database",
+  "description": "a node data store that is convenient",
   "main": "./lib/index.js",
   "scripts": {
     "test": "tape ./tests/**/*.test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/holmok/db.git"
+    "url": "git+https://github.com/holmok/convenience-store.git"
   },
   "keywords": [
     "node",
     "db",
     "database",
+    "datastore",
     "simple"
   ],
   "author": "Christopher Holmok <christopher@holmok.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/holmok/db/issues"
+    "url": "https://github.com/holmok/convenience-store/issues"
   },
-  "homepage": "https://github.com/holmok/db#readme",
+  "homepage": "https://github.com/holmok/convenience-store#readme",
   "devDependencies": {
     "nyc": "^13.3.0",
     "sinon": "^7.3.1",

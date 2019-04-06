@@ -1,3 +1,3 @@
-# @holmok/db
+# convenience-store
 
-a node.js based database
+a node data store that is convenient
