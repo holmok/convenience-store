@@ -39,6 +39,7 @@
   "dependencies": {
     "avsc": "^5.4.7",
     "lru-cache": "^5.1.1",
-    "snappy": "^6.1.2"
+    "snappy": "^6.1.2",
+    "uuid62": "^1.0.1"
   }
 }
