@@ -15,7 +15,7 @@ function pre () {
       buffer.writeUInt8(2, 57)
     },
     writeSync () {},
-    copyFileSync () {} }
+    renameSync () {} }
   class AvroType extends Avro.Type {
     toBuffer () {}
     fromBuffer () {}
@@ -153,7 +153,7 @@ Tape('Items constructor, create, get, delete, and compression (with file) happy 
   context.fsMock.expects('writeSync').once().withArgs(3).returns()
   context.fsMock.expects('closeSync').once().withArgs(3).returns()
   context.fsMock.expects('unlinkSync').once().withArgs(pathList).returns()
-  context.fsMock.expects('copyFileSync').once().withArgs(pathNew, pathList).returns()
+  context.fsMock.expects('renameSync').once().withArgs(pathNew, pathList).returns()
 
   const Items = Proxyquire('../../lib/items', { fs: context.fs })
   const items = new Items(path, context.avroType)
