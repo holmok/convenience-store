@@ -64,6 +64,7 @@ Tape('store test compress and filter', (t) => {
   t.ok(listStart > listEnd, `List start (${listStart} bytes) > List end (${listEnd} bytes)`)
   t.ok(dataStart > dataEnd, `List start (${dataStart} bytes) > List end (${dataEnd} bytes)`)
 
+  Rimraf.sync(path)
   t.pass('Success')
   t.end()
 })
@@ -81,6 +82,7 @@ Tape('store test order', (t) => {
   let item3 = store.getItems({ bucket, order: ORDER.DESCENDING }).items[0]
   t.equal(item3.id, 19, 'ORDER.DESCENDING order works')
 
+  Rimraf.sync(path)
   t.pass('Success')
   t.end()
 })
@@ -97,6 +99,7 @@ Tape('store test getItems paging', (t) => {
   t.equal(items2.items.length, 3, 'got 3 item on take 3')
   t.equal(items2.items[0].id, 2, 'got first item id=2 on offset 2')
 
+  Rimraf.sync(path)
   t.pass('Success')
   t.end()
 })
@@ -117,6 +120,7 @@ Tape('store test filter paging', (t) => {
   t.equal(items3.more, false, 'got no more when only taking 2 with and offset = 8')
   t.equal(items3.items.length, 1, 'got only 1 item on taking 2  and offset = 8')
 
+  Rimraf.sync(path)
   t.pass('Success')
   t.end()
 })
