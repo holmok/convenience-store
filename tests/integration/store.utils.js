@@ -49,7 +49,7 @@ function allMethods (t, store) {
 }
 
 function createItems (path, t) {
-  const store = new Store({ path })
+  const store = new Store(path)
   t.ok(store, `New instance of store`)
   const list = []
   for (let i = 0; i < 20; i++) {

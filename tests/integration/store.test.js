@@ -1,13 +1,13 @@
 const Tape = require('Tape')
 const Fs = require('fs')
 const Rimraf = require('rimraf')
-
+const { BaseSerializer } = require('../../lib')
 const { setup, allMethods, createItems } = require('./store.utils')
 const { Store, ORDER } = require('../../lib/store')
 
 Tape('store test / compression and cipher / all methods', (t) => {
   const path = setup()
-  const store = new Store({ path, compress: true, password: 'password', salt: 'this is a salt' })
+  const store = new Store(path, { compress: true, password: 'password', salt: 'this is a salt' })
   allMethods(t, store)
   Rimraf.sync(path)
   t.pass('Success')
@@ -16,7 +16,21 @@ Tape('store test / compression and cipher / all methods', (t) => {
 
 Tape('store test / no compression and cipher / all methods', (t) => {
   const path = setup()
-  const store = new Store({ path })
+  const store = new Store(path)
+  allMethods(t, store)
+  Rimraf.sync(path)
+  t.pass('Success')
+  t.end()
+})
+
+Tape('store test / different serializer / all methods', (t) => {
+  class JsonSerializer extends BaseSerializer {
+    serialize (item) { return JSON.stringify(item) }
+    deserialize (data) { return JSON.parse(data) }
+  }
+  const serializer = new JsonSerializer()
+  const path = setup()
+  const store = new Store(path, { serializer })
   allMethods(t, store)
   Rimraf.sync(path)
   t.pass('Success')
@@ -25,7 +39,7 @@ Tape('store test / no compression and cipher / all methods', (t) => {
 
 Tape('store test / compression / all methods', (t) => {
   const path = setup()
-  const store = new Store({ path, compress: true })
+  const store = new Store(path, { compress: true })
   allMethods(t, store)
   Rimraf.sync(path)
   t.pass('Success')
@@ -34,7 +48,7 @@ Tape('store test / compression / all methods', (t) => {
 
 Tape('store test / cipher / all methods', (t) => {
   const path = setup()
-  const store = new Store({ path, password: 'password', salt: 'this is a salt' })
+  const store = new Store(path, { password: 'password', salt: 'this is a salt' })
   allMethods(t, store)
   Rimraf.sync(path)
   t.pass('Success')
