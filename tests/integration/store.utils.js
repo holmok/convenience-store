@@ -23,28 +23,28 @@ function allMethods (t, store) {
   t.ok(store, `New instance of store`)
   const object = { name: 'string', active: true, age: 49 }
   const bucket = 'bucket'
-  store.createBucket({ bucket, type: object })
+  store.createBucket(bucket, object)
   t.pass('(createBucket)   Worked')
-  const id = store.create({ bucket, item: object })
+  const id = store.create(bucket, object)
   t.ok(id, `(create)  Got id=${id}`)
-  const result1 = store.get({ bucket, id })
+  const result1 = store.get(bucket, id)
   t.ok(result1, `(get)   Got result=${JSON.stringify(result1)}`)
   object.name = 'bob'
-  store.update({ bucket, id, item: object })
+  store.update(bucket, id, object)
   t.pass('(update)   Worked')
-  const result2 = store.get({ bucket, id })
+  const result2 = store.get(bucket, id)
   t.ok(result2.name === 'bob', `(get/after update)   Got result=${JSON.stringify(result2)}`)
-  const results1 = store.getItems({ bucket })
+  const results1 = store.getItems(bucket)
   t.ok(results1.items.length > 0, `(getItems)  Got results=${JSON.stringify(results1)}`)
-  const results2 = store.filterItems({ bucket, filter: (i) => i.active })
+  const results2 = store.filterItems(bucket, (i) => i.active)
   t.ok(results2.items.length > 0, `(filterItems/true)  Got result=${JSON.stringify(results2)}`)
-  const results3 = store.filterItems({ bucket, filter: (i) => !i.active })
+  const results3 = store.filterItems(bucket, (i) => !i.active)
   t.ok(results3.items.length === 0, `(filterItems/false)  Got result=${JSON.stringify(results3)}`)
-  store.delete({ bucket, id })
+  store.delete(bucket, id)
   t.pass('(delete)   Worked')
-  const results4 = store.getItems({ bucket })
+  const results4 = store.getItems(bucket)
   t.ok(results4.count === 0, `(getItems/after delete)  Got results=${JSON.stringify(results4)}`)
-  store.compress({ bucket })
+  store.compress(bucket)
   t.pass('(compress)   Worked')
 }
 
@@ -56,13 +56,13 @@ function createItems (path, t) {
     list.push({ id: i, name: 'string', active: i % 2 === 0, age: 49 + i })
   }
   const bucket = 'bucket'
-  store.createBucket({ bucket, type: list[0] })
+  store.createBucket(bucket, list[0])
   t.pass('(createBucket)   Worked')
   const basePath = bucketPath(path, bucket)
   const listPath = `${basePath}.list`
   const dataPath = `${basePath}.data`
   for (const item of list) {
-    store.create({ bucket, id: item.id, item })
+    store.create(bucket, item)
   }
   t.pass('Crate all items worked')
   return { listPath, dataPath, store, bucket }
