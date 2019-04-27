@@ -91,6 +91,39 @@ Tape('Items constructor and get item (with file) happy path', (t) => {
   t.pass('success')
 })
 
+Tape('Items constructor and update item (with file) happy path', (t) => {
+  t.plan(3)
+  const context = pre()
+
+  const path = 'test'
+  const pathList = 'test.list'
+  const buffer = Buffer.alloc(58)
+  const key = '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
+  const item = { key: Buffer.from(key, 'hex'), start: Buffer.alloc(8), length: Buffer.alloc(8), position: Buffer.alloc(8) }
+  context.fsMock.expects('existsSync').once().withArgs(pathList).returns(true)
+  context.fsMock.expects('openSync').once().withArgs(pathList, 'r').returns(1)
+  context.fsMock.expects('readSync').once().withArgs(1, buffer, 0, 58, 0).callThrough().returns(1)
+  context.fsMock.expects('readSync').once().withArgs(1, buffer, 0, 58, 58).returns(0)
+  context.avroTypeMock.expects('fromBuffer').once().returns(item)
+  context.fsMock.expects('closeSync').once().withArgs(1).returns()
+
+  context.avroTypeMock.expects('toBuffer').once().returns(buffer)
+
+  context.fsMock.expects('openSync').once().withArgs(pathList, 'w').returns(2)
+  context.fsMock.expects('writeSync').once().withArgs(2).returns()
+  context.fsMock.expects('closeSync').once().withArgs(2).returns()
+
+  const Items = Proxyquire('../../lib/items', { fs: context.fs })
+  const items = new Items(path, context.avroType)
+  t.ok(items, 'create an instance')
+
+  items.update(key, item.start, item.length, item.position)
+  t.pass('updated')
+  post(context)
+
+  t.pass('success')
+})
+
 Tape('Items constructor and delete item (with file) happy path', (t) => {
   t.plan(3)
   const context = pre()
