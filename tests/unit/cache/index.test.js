@@ -18,10 +18,11 @@ Tape('BaseCache', (t) => {
 
 Tape('DefaultCache', (t) => {
   t.plan(7)
-  const getStub = Sinon.stub(LruCache.prototype, 'get').returns('value')
-  const setStub = Sinon.stub(LruCache.prototype, 'set').returns()
-  const delStub = Sinon.stub(LruCache.prototype, 'del').returns()
-  const resetStub = Sinon.stub(LruCache.prototype, 'reset').returns('apple')
+  const sandbox = Sinon.createSandbox()
+  const getStub = sandbox.stub(LruCache.prototype, 'get').returns('value')
+  const setStub = sandbox.stub(LruCache.prototype, 'set').returns()
+  const delStub = sandbox.stub(LruCache.prototype, 'del').returns()
+  const resetStub = sandbox.stub(LruCache.prototype, 'reset').returns()
 
   const cache = new DefaultCache()
   t.ok(cache, 'create instance of base cache')
@@ -37,5 +38,6 @@ Tape('DefaultCache', (t) => {
   t.ok(delStub.calledOnce, 'base lruCache.del() called')
   t.ok(resetStub.calledTwice, 'base lruCache.reset() called')
 
+  sandbox.restore()
   t.pass('success')
 })
