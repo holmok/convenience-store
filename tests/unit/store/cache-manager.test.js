@@ -10,8 +10,8 @@ function pre (cache) {
   context.setStub = sandbox.stub(cache.prototype, 'set').returns()
   context.delStub = sandbox.stub(cache.prototype, 'del').returns()
   context.clearStub = sandbox.stub(cache.prototype, 'clear').returns()
-  const Crypto = { createHash () {} }
-  context.cryptMock = sandbox.mock(Crypto)
+  const crypto = { createHash () {} }
+  context.cryptMock = sandbox.mock(crypto)
   context.cryptMock.expects('createHash').once().returns({
     update () {
       return {
@@ -21,7 +21,7 @@ function pre (cache) {
       }
     }
   })
-  context.CacheManager = Proxiquire('../../../lib/store/cache-manager', { Crypto })
+  context.CacheManager = Proxiquire('../../../lib/store/cache-manager', { crypto })
   return context
 }
 

@@ -51,7 +51,7 @@ Tape('Items constructor and create item (no file) happy path', (t) => {
   context.fsMock.expects('writeSync').once().withArgs(2).returns()
   context.fsMock.expects('closeSync').once().withArgs(2).returns()
 
-  const Items = Proxyquire('../../lib/items', { fs: context.fs })
+  const { Items } = Proxyquire('../../lib/items', { fs: context.fs })
   const items = new Items(path, context.avroType)
   t.ok(items, 'create an instance')
 
@@ -78,7 +78,7 @@ Tape('Items constructor and get item (with file) happy path', (t) => {
   context.avroTypeMock.expects('fromBuffer').once().returns(item)
   context.fsMock.expects('closeSync').once().withArgs(1).returns()
 
-  const Items = Proxyquire('../../lib/items', { fs: context.fs })
+  const { Items } = Proxyquire('../../lib/items', { fs: context.fs })
   const items = new Items(path, context.avroType)
   t.ok(items, 'create an instance')
 
@@ -113,7 +113,7 @@ Tape('Items constructor and update item (with file) happy path', (t) => {
   context.fsMock.expects('writeSync').once().withArgs(2).returns()
   context.fsMock.expects('closeSync').once().withArgs(2).returns()
 
-  const Items = Proxyquire('../../lib/items', { fs: context.fs })
+  const { Items } = Proxyquire('../../lib/items', { fs: context.fs })
   const items = new Items(path, context.avroType)
   t.ok(items, 'create an instance')
 
@@ -144,7 +144,7 @@ Tape('Items constructor and delete item (with file) happy path', (t) => {
   context.fsMock.expects('writeSync').once().withArgs(2).returns()
   context.fsMock.expects('closeSync').once().withArgs(2).returns()
 
-  const Items = Proxyquire('../../lib/items', { fs: context.fs })
+  const { Items } = Proxyquire('../../lib/items', { fs: context.fs })
   const items = new Items(path, context.avroType)
   t.ok(items, 'create an instance')
 
@@ -188,7 +188,7 @@ Tape('Items constructor, create, get, delete, and compression (with file) happy 
   context.fsMock.expects('unlinkSync').once().withArgs(pathList).returns()
   context.fsMock.expects('renameSync').once().withArgs(pathNew, pathList).returns()
 
-  const Items = Proxyquire('../../lib/items', { fs: context.fs })
+  const { Items } = Proxyquire('../../lib/items', { fs: context.fs })
   const items = new Items(path, context.avroType)
   t.ok(items, 'create an instance')
 
