@@ -4,7 +4,7 @@
   "description": "a node data store that is convenient",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "npm run test:lint && npm run test:nyc",
+    "test": "npm run test:lint && npm run test:integration && npm run test:nyc",
     "test:unit": "tape tests/unit/*.test.js tests/unit/**/*.test.js | tap-spec",
     "test:integration": "tape ./tests/integration/*.test.js | tap-spec",
     "test:nyc": "nyc --check-coverage --lines 100 --functions 100 --branches 100 --reporter=html --reporter=text --reporter=text-summary npm run test:unit",
@@ -29,15 +29,18 @@
   "homepage": "https://github.com/holmok/convenience-store#readme",
   "devDependencies": {
     "mockdate": "^2.0.2",
-    "nyc": "^13.3.0",
+    "nyc": "^14.0.0",
     "proxyquire": "^2.1.0",
-    "sinon": "^7.3.1",
+    "rimraf": "^2.6.3",
+    "sinon": "^7.3.2",
     "standard": "^12.0.1",
     "tap-spec": "^5.0.0",
     "tape": "^4.10.1"
   },
   "dependencies": {
-    "avsc": "^5.4.7",
-    "snappy": "^6.1.2"
+    "avsc": "^5.4.10",
+    "lru-cache": "^5.1.1",
+    "snappy": "^6.1.2",
+    "uuid62": "^1.0.1"
   }
 }

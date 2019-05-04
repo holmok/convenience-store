@@ -6,7 +6,7 @@ Tape('bucket test / compression and cipher', (t) => {
   const path = Path.join(process.cwd(), 'items')
   if (Fs.existsSync(`${path}.list`)) Fs.unlinkSync(`${path}.list`)
 
-  const Items = require('../../lib/items')
+  const { Items } = require('../../lib/items')
 
   const items = new Items(path)
   t.ok(items, 'new items')
