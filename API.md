@@ -31,7 +31,7 @@ Creates an instance of a store.
 
 ### __store.createBucket__
 ```javascript
-store.createBucket (bucket, type)
+store.createBucket(bucket, type)
 ```
 Creates a bucket for items.
 #### Paramters
@@ -42,7 +42,7 @@ Creates a bucket for items.
 
 ### __store.deleteBucket__
 ```javascript
-store.deleteBucket (bucket)
+store.deleteBucket(bucket)
 ```
 Deletes a bucket.
 #### Paramters
@@ -52,7 +52,7 @@ Deletes a bucket.
 
 ### __store.compress__
 ```javascript
-store.compress (bucket)
+store.compress(bucket)
 ```
 Shrinks data files by removing the empty spaces left by deleted items.
 #### Paramters
@@ -62,7 +62,7 @@ Shrinks data files by removing the empty spaces left by deleted items.
 
 ### __store.create__
 ```javascript
-store.create (bucket, item)
+store.create(bucket, item)
 ```
 Adds an item to the bucket.
 #### Paramters
@@ -77,7 +77,7 @@ This functions throws an error if the `id` is already used by an existing item i
 
 ### __store.get__
 ```javascript
-store.get (bucket, id)
+store.get(bucket, id)
 ```
 Retrieves an item from a bucket by its `id`.
 #### Paramters
@@ -90,7 +90,7 @@ This functions returns the item for the given `id` if it exists in the bucket, o
 
 ### __store.update__
 ```javascript
-store.update (bucket, id, item)
+store.update(bucket, id, item)
 ```
 Updates an existing item in a bucket.
 #### Paramters
@@ -104,7 +104,7 @@ This functions throws an error if the `id` is does not exist for an item in the 
 
 ### __store.delete__
 ```javascript
-store.delete (bucket, id)
+store.delete(bucket, id)
 ```
 Removes an existing item from a bucket.
 #### Paramters
@@ -115,7 +115,7 @@ Removes an existing item from a bucket.
 
 ### __store.getItems__
 ```javascript
-store.getItems (bucket, {options})
+store.getItems(bucket, {options})
 ```
 Gets a list of items from a bucket.
 #### Paramters
@@ -133,7 +133,7 @@ An object with the results: `{count,items}`
 
 ### __store.filterItems__
 ```javascript
-store.filterItems (bucket, filter, {options})
+store.filterItems(bucket, filter, {options})
 ```
 Gets a filtered list of items from a bucket.
 #### Paramters
@@ -152,7 +152,7 @@ An object with the results: `{more,items}`
 
 ### __store.resetCache__
 ```javascript
-store.resetCache ()
+store.resetCache()
 ```
 Resets the cache for the store, clearing all items from cache.
 
