@@ -1,7 +1,7 @@
 const Tape = require('tape')
 const Sinon = require('sinon')
 const LruCache = require('lru-cache')
-const { BaseCache, DefaultCache } = require('../../../lib/cache')
+const { BaseCache, LRUCache, MemoryCache, NoCache } = require('../../../lib/cache')
 
 Tape('BaseCache', (t) => {
   t.plan(6)
@@ -16,7 +16,7 @@ Tape('BaseCache', (t) => {
   t.pass('success')
 })
 
-Tape('DefaultCache', (t) => {
+Tape('LRUCache', (t) => {
   t.plan(7)
   const sandbox = Sinon.createSandbox()
   const getStub = sandbox.stub(LruCache.prototype, 'get').returns('value')
@@ -24,7 +24,7 @@ Tape('DefaultCache', (t) => {
   const delStub = sandbox.stub(LruCache.prototype, 'del').returns()
   const resetStub = sandbox.stub(LruCache.prototype, 'reset').returns()
 
-  const cache = new DefaultCache()
+  const cache = new LRUCache()
   t.ok(cache, 'create instance of base cache')
 
   cache.set('key', 'value')
@@ -39,5 +39,41 @@ Tape('DefaultCache', (t) => {
   t.ok(resetStub.calledTwice, 'base lruCache.reset() called')
 
   sandbox.restore()
+  t.pass('success')
+})
+
+Tape('Memory', (t) => {
+  t.plan(5)
+
+  const cache = new MemoryCache()
+  t.ok(cache, 'create instance of base cache')
+
+  cache.set('key', 'value')
+  const value1 = cache.get('key')
+  t.equals(value1, 'value', 'got value')
+
+  cache.del('key')
+  const value2 = cache.get('key')
+  t.notok(value2, 'deleted value')
+
+  cache.set('key', 'value')
+  cache.clear()
+  const value3 = cache.get('get')
+  t.notok(value3, 'cleared value')
+
+  t.pass('success')
+})
+
+Tape('No Cache', (t) => {
+  t.plan(3)
+
+  const cache = new NoCache()
+  t.ok(cache, 'create instance of base cache')
+
+  cache.set('key', 'value')
+  t.notok(cache.get('key'), 'not stored')
+  cache.del('key')
+  cache.clear()
+
   t.pass('success')
 })
