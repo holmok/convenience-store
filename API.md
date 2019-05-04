@@ -131,7 +131,7 @@ An object with the results: `{count,items}`
 
 ----
 
-### __store.filterItems
+### __store.filterItems__
 ```javascript
 store.filterItems ([bucket], [filter], {[options]})
 ```
@@ -150,7 +150,7 @@ An object with the results: `{more,items}`
 
 ----
 
-### resetCache
+### __store.resetCache__
 ```javascript
 store.resetCache ()
 ```
