@@ -5,7 +5,7 @@
 ### Constructor
 
 ```javascript
-const store = new Store([path], {[options]})
+const store = new Store(path, {options})
 ```
 
 Creates an instance of a store.
@@ -15,7 +15,7 @@ Creates an instance of a store.
 - `path`: the file path to persist the data to disk. __(required)__
 - `options`: this are optional settings that change the behaviour for the store. _(optional)_
     - `compress`: [Boolean|BaseCompresser] If an instance of `BaseCompresser` is passed it will use that, otherwise if `true` it will use the default compressor that uses [snappy](https://www.npmjs.com/package/snappy)) or no compression if `false`.  _(optional, defaults to false)_ 
-    - `serializer`: [BaseSerializer] If an instance of `BaseSerializer` to turn items into buffers and buffers to items to read and write to disk. The default serializer uses  [avsc for Avro](https://www.npmjs.com/package/avsc)   _(optional, Avro)_ __Currently this is the only available one as it is coupled to the code in many places. [Issue #9](https://github.com/holmok/convenience-store/issues/9) covers this.__
+    - `serializer`: [BaseSerializer] If an instance of `BaseSerializer` to turn items into buffers and buffers to items to read and write to disk. The default serializer uses  [avsc for Avro](https://www.npmjs.com/package/avsc)   _(optional, defaults to Avro)_ __Currently this is the only available one as it is coupled to the code in many places. [Issue #9](https://github.com/holmok/convenience-store/issues/9) covers this.__
      - `compress`: [Boolean|BaseCompresser] If an instance of `BaseCompresser` is passed it will use that, otherwise if `true` it will use the default compressor (using [snappy](https://www.npmjs.com/package/snappy)) or no compression if `false`.  _(optional, defaults to false)_ 
      - `password`: [String] Password for Cipher.  Must be include for encryption along with `salt`. _(optional)_
      - `salt`: [String] Salt for Cipher.  Must be include for encryption along with `password`. _(optional)_     
@@ -31,7 +31,7 @@ Creates an instance of a store.
 
 ### __store.createBucket__
 ```javascript
-store.createBucket ([bucket], [type])
+store.createBucket (bucket, type)
 ```
 Creates a bucket for items.
 #### Paramters
@@ -42,7 +42,7 @@ Creates a bucket for items.
 
 ### __store.deleteBucket__
 ```javascript
-store.deleteBucket ([bucket])
+store.deleteBucket (bucket)
 ```
 Deletes a bucket.
 #### Paramters
@@ -52,7 +52,7 @@ Deletes a bucket.
 
 ### __store.compress__
 ```javascript
-store.compress ([bucket])
+store.compress (bucket)
 ```
 Shrinks data files by removing the empty spaces left by deleted items.
 #### Paramters
@@ -62,7 +62,7 @@ Shrinks data files by removing the empty spaces left by deleted items.
 
 ### __store.create__
 ```javascript
-store.create ([bucket], [item])
+store.create (bucket, item)
 ```
 Adds an item to the bucket.
 #### Paramters
@@ -77,7 +77,7 @@ This functions throws an error if the `id` is already used by an existing item i
 
 ### __store.get__
 ```javascript
-store.get ([bucket], [id])
+store.get (bucket, id)
 ```
 Retrieves an item from a bucket by its `id`.
 #### Paramters
@@ -90,7 +90,7 @@ This functions returns the item for the given `id` if it exists in the bucket, o
 
 ### __store.update__
 ```javascript
-store.update ([bucket], [id], [item])
+store.update (bucket, id, item)
 ```
 Updates an existing item in a bucket.
 #### Paramters
@@ -104,7 +104,7 @@ This functions throws an error if the `id` is does not exist for an item in the 
 
 ### __store.delete__
 ```javascript
-store.delete ([bucket], [id])
+store.delete (bucket, id)
 ```
 Removes an existing item from a bucket.
 #### Paramters
@@ -115,7 +115,7 @@ Removes an existing item from a bucket.
 
 ### __store.getItems__
 ```javascript
-store.getItems ([bucket], {[options]})
+store.getItems (bucket, {options})
 ```
 Gets a list of items from a bucket.
 #### Paramters
@@ -133,7 +133,7 @@ An object with the results: `{count,items}`
 
 ### __store.filterItems__
 ```javascript
-store.filterItems ([bucket], [filter], {[options]})
+store.filterItems (bucket, filter, {options})
 ```
 Gets a filtered list of items from a bucket.
 #### Paramters
