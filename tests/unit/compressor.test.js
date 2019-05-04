@@ -5,7 +5,7 @@ const Sinon = require('sinon')
 Tape('BaseCompresser', (t) => {
   t.plan(4)
 
-  const { BaseCompresser } = require('../../../lib/serializer/compresser')
+  const { BaseCompresser } = require('../../lib/compresser')
   const compresser = new BaseCompresser()
 
   t.ok(compresser, 'create an instance')
@@ -20,7 +20,7 @@ Tape('Compresser - happy path', (t) => {
   t.plan(4)
 
   const snappyMock = Sinon.mock(Snappy)
-  const { Compresser } = require('../../../lib/serializer/compresser')
+  const { Compresser } = require('../../lib/compresser')
 
   const compressed = Buffer.from('compressed')
   const uncompressed = Buffer.from('uncompressed')
@@ -47,7 +47,7 @@ Tape('Compresser - non buffer params', (t) => {
   t.plan(10)
 
   const snappyMock = Sinon.mock(Snappy)
-  const { Compresser } = require('../../../lib/serializer/compresser')
+  const { Compresser } = require('../../lib/compresser')
 
   snappyMock.expects('compressSync').never()
   snappyMock.expects('uncompressSync').never()

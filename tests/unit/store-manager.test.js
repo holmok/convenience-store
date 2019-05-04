@@ -25,7 +25,7 @@ function pre () {
   context.serializer = { serialize () {}, deserialize () {} }
   context.serializerMock = sandbox.mock(context.serializer)
 
-  const StoreManager = Proxyquire('../../../lib/store/store-manager', { fs: Fs })
+  const StoreManager = Proxyquire('../../lib/store/store-manager', { fs: Fs })
 
   context.StoreManager = StoreManager.StoreManager
   context.ORDER = StoreManager.ORDER

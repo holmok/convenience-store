@@ -1,7 +1,7 @@
 const Tape = require('tape')
 const Sinon = require('sinon')
 const LruCache = require('lru-cache')
-const { BaseCache, LRUCache, MemoryCache, NoCache } = require('../../../lib/cache')
+const { BaseCache, LRUCache, MemoryCache, NoCache } = require('../../lib/cache')
 
 Tape('BaseCache', (t) => {
   t.plan(6)

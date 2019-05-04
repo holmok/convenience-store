@@ -7,8 +7,8 @@ Tape('bucket test / compression and cipher', (t) => {
   const path = Path.join(process.cwd(), 'bucket.list')
   if (Fs.existsSync(path)) Fs.unlinkSync(path)
 
-  const { Compresser } = require('../../lib/serializer/compresser')
-  const { Cipher } = require('../../lib/serializer/cipher')
+  const { Compresser } = require('../../lib/compresser')
+  const { Cipher } = require('../../lib/cipher')
   const { Serializer } = require('../../lib/serializer')
   const { Buckets, BUCKETS_TYPE } = require('../../lib/buckets')
 
@@ -17,7 +17,7 @@ Tape('bucket test / compression and cipher', (t) => {
   const compresser = new Compresser()
   t.ok(compresser, 'new compresser')
 
-  const cipher = new Cipher('abdefghijkl', 'mnopqrstuv')
+  const cipher = new Cipher('abdefghijkl')
   t.ok(cipher, 'new cipher')
 
   const serializer = new Serializer(BUCKETS_TYPE, { compresser, cipher })

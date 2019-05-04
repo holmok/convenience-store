@@ -1,8 +1,8 @@
 /* eslint no-new: 0 */
 const Tape = require('Tape')
 const Sinon = require('sinon')
-const { BaseCipher } = require('../../../lib/serializer/cipher')
-const { BaseCompresser } = require('../../../lib/serializer/compresser')
+const { BaseCipher } = require('../../lib/cipher')
+const { BaseCompresser } = require('../../lib/compresser')
 const Avro = require('avsc')
 
 function pre () {
@@ -32,7 +32,7 @@ function post (context) {
 Tape('BaseSerializer', (t) => {
   t.plan(4)
 
-  const { BaseSerializer } = require('../../../lib/serializer')
+  const { BaseSerializer } = require('../../lib/serializer')
   const serializer = new BaseSerializer()
 
   t.ok(serializer, 'create an instance')
@@ -59,7 +59,7 @@ Tape('Serializer - happy path (no compression, no encryption)', (t) => {
   context.avroTypeMock.expects('fromBuffer').once().withArgs(buffer).returns(item)
   context.avroTypeMock.expects('isValid').once().withArgs(item).returns(true)
 
-  const { Serializer } = require('../../../lib/serializer')
+  const { Serializer } = require('../../lib/serializer')
   const serializer = new Serializer(context.avroType)
 
   t.ok(serializer, 'create an instance')
@@ -91,7 +91,7 @@ Tape('Serializer - happy path (with compression, no encryption)', (t) => {
   context.avroTypeMock.expects('fromBuffer').once().withArgs(buffer).returns(item)
   context.avroTypeMock.expects('isValid').once().withArgs(item).returns(true)
 
-  const { Serializer } = require('../../../lib/serializer')
+  const { Serializer } = require('../../lib/serializer')
   const serializer = new Serializer(context.avroType, { compresser: context.compresser })
 
   t.ok(serializer, 'create an instance')
@@ -123,7 +123,7 @@ Tape('Serializer - happy path (no compression, with encryption)', (t) => {
   context.avroTypeMock.expects('fromBuffer').once().withArgs(buffer).returns(item)
   context.avroTypeMock.expects('isValid').once().withArgs(item).returns(true)
 
-  const { Serializer } = require('../../../lib/serializer')
+  const { Serializer } = require('../../lib/serializer')
   const serializer = new Serializer(context.avroType, { cipher: context.cipher })
 
   t.ok(serializer, 'create an instance')
@@ -156,7 +156,7 @@ Tape('Serializer - happy path (with compression, with encryption)', (t) => {
   context.avroTypeMock.expects('fromBuffer').once().withArgs(buffer).returns(item)
   context.avroTypeMock.expects('isValid').once().withArgs(item).returns(true)
 
-  const { Serializer } = require('../../../lib/serializer')
+  const { Serializer } = require('../../lib/serializer')
   const serializer = new Serializer(context.avroType, { cipher: context.cipher, compresser: context.compresser })
 
   t.ok(serializer, 'create an instance')
@@ -174,7 +174,7 @@ Tape('Serializer - happy path (with compression, with encryption)', (t) => {
 Tape('Serializer - bad params', (t) => {
   t.plan(6)
   const context = pre()
-  const { Serializer } = require('../../../lib/serializer')
+  const { Serializer } = require('../../lib/serializer')
 
   const item = 'item'
 
@@ -198,7 +198,7 @@ Tape('Serializer - bad constructors', (t) => {
   t.plan(5)
   const context = pre()
   post(context)
-  const { Serializer } = require('../../../lib/serializer')
+  const { Serializer } = require('../../lib/serializer')
 
   t.throws(() => { new Serializer() }, /`type` must be an instance of Avro.Type/, 'type undefined')
   t.throws(() => { new Serializer('bad') }, /`type` must be an instance of Avro.Type/, 'type wrong type')

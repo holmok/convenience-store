@@ -1,3 +1,10 @@
+# API Documentation for @convenience/store
+
+- [Store](#store)
+- [Cache](#cache)
+
+----
+
 # Store
 
 `Store` is a class that represents access to the data store that allows for managing buckets, and creating, retrieving, updating, and deleting items in those buckets.
@@ -14,13 +21,9 @@ Creates an instance of a store.
 
 - `path`: the file path to persist the data to disk. __(required)__
 - `options`: this are optional settings that change the behaviour for the store. _(optional)_
-    - `compress`: [Boolean|BaseCompresser] If an instance of `BaseCompresser` is passed it will use that, otherwise if `true` it will use the default compressor that uses [snappy](https://www.npmjs.com/package/snappy)) or no compression if `false`.  _(optional, defaults to false)_ 
-    - `serializer`: [BaseSerializer] If an instance of `BaseSerializer` to turn items into buffers and buffers to items to read and write to disk. The default serializer uses  [avsc for Avro](https://www.npmjs.com/package/avsc)   _(optional, defaults to Avro)_ __Currently this is the only available one as it is coupled to the code in many places. [Issue #9](https://github.com/holmok/convenience-store/issues/9) covers this.__
-     - `compress`: [Boolean|BaseCompresser] If an instance of `BaseCompresser` is passed it will use that, otherwise if `true` it will use the default compressor (using [snappy](https://www.npmjs.com/package/snappy)) or no compression if `false`.  _(optional, defaults to false)_ 
-     - `password`: [String] Password for Cipher.  Must be include for encryption along with `salt`. _(optional)_
-     - `salt`: [String] Salt for Cipher.  Must be include for encryption along with `password`. _(optional)_     
-     - `algorithm`: [String] Algorithm for Cipher. _(optional, defaults to 'AES-256-CBC')_  
-     - `cache`: [BaseCache] Instance of caching object. Included are:
+    - `compress`: [Boolean] If `true` it data written to disk will be compressed or no compression if `false`.  _(optional, defaults to false)_ 
+    - `password`: [String] Password for Cipher.  If not set, no encryption is used when writting to disk. _(optional, defaults to undefined)_
+    - `cache`: [BaseCache] Instance of caching object. Included are:
        - `NoCache`: No caching, disk is hit for all gets.
        - `MemoeryCache`: Holds all gets/sets in memory, no invalidation. __(default)__ 
        - `LRUCache`: An in-memory cahce that is very configurable: [Read more](https://www.npmjs.com/package/lru-cache)
@@ -67,7 +70,7 @@ store.create(bucket, item)
 Adds an item to the bucket.
 #### Paramters
   - `bukcet`: [string] Name of bucket __(required)__
-  - `item`: [Object] The item to add to the bucket.  If the item has a `id` property, that will be used to key it in the bucket, otherwise a random string is used. __(required)__
+  - `item`: [Object] The item to add to the bucket. _This item must be serializable based on the type passed to the bucket creation._  If the item has a `id` property, that will be used to key it in the bucket, otherwise a random string is used. __(required)__
 #### Returns
 This functions returns the `id` used to store item in the bucket.
 #### Throws
@@ -96,7 +99,7 @@ Updates an existing item in a bucket.
 #### Paramters
   - `bukcet`: [string] Name of bucket __(required)__
   - `id`: [string|number|[value]] The `id` of the item to update. If this is different than the `id` property of the item it will item's `id` will be overwritten by this value. __(required)__
-  - `item`: [Object] The item to replace in the bucket. __(required)__
+  - `item`: [Object] The item to replace in the bucket.  _This item must be serializable based on the type passed to the bucket creation._ __(required)__
 #### Throws
 This functions throws an error if the `id` is does not exist for an item in the bucket.
 
@@ -155,4 +158,57 @@ An object with the results: `{more,items}`
 store.resetCache()
 ```
 Resets the cache for the store, clearing all items from cache.
+
+----
+
+# Cache
+
+## BaseCache
+
+`BaseCache` is a an unimplemented class that can be extended to create a new cache provider. Your class must implement the `get`, `set`, `del`, and `clear` methods. The constructor takes an `options` parameter. Example:
+
+```javascript
+const {BaseCache} = require('@convenience/store')
+const Fancy = require('some-fancy-cache-thing')
+
+class FancyCache extends BaseCache {
+  constructor (options) {
+    super(options)
+    this.cache = new Fancy(options)
+  }
+  get (key) { return this.cache.goGetThe(key) }
+  set (key, item) { this.cache.setThe(key,item) }
+  del (key) { this.cache.deleteThe(key) }
+  clear () { this.cache.eraseEverthing() }
+}
+```
+
+## NoCache
+
+`NoCache` is a noop cache.  When used, it does nothing. The store will always read from disk. To disable caching in your store, initialize like this:
+```javascript
+const {Store, NoCache} = require('@convenience/store')
+
+const store = new Store('some/path', {cache: new NoCache()})
+```
+
+## MemoryCache
+
+`MemoryCache` is an in-memory cache with no expiration. It just grows until you run out of memory or call `store.resetCache()`.  Great for smaller stores like configurations and such. To use this basic memory caching in your store, initialize like this:
+```javascript
+const {Store, MemoryCache} = require('@convenience/store')
+
+const store = new Store('some/path', {cache: new MemoryCache()})
+```
+
+## LRUCache
+
+`LRUCache` uses [lru-cache](https://www.npmjs.com/package/lru-cache) for an in-memory cache that has all the bells and whistles.  It takes in the options for the lru-cache, or just defaults to the 100 most used items. To use this basic memory caching in your store, initialize like this:
+```javascript
+const {Store, LRUCache} = require('@convenience/store')
+const options = { max: 500, maxAge: 1000 * 60 * 60 } // 500 items, expire in an hour
+const store = new Store('some/path', {cache: new LRUCache(options)})
+```
+
+----
 

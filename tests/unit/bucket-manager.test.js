@@ -1,7 +1,7 @@
 const Tape = require('tape')
 const Sinon = require('sinon')
-const { BaseSerializer } = require('../../../lib/serializer')
-const Buckets = require('../../../lib/buckets')
+const { BaseSerializer } = require('../../lib/serializer')
+const Buckets = require('../../lib/buckets')
 const Proxyquire = require('proxyquire').noCallThru()
 
 Tape('BucketManager constructor and method', (t) => {
@@ -16,7 +16,7 @@ Tape('BucketManager constructor and method', (t) => {
   bucketsMock.expects('delete').once().withArgs('bucket').returns()
   bucketsMock.expects('get').once().withArgs('bucket').returns('bucket')
 
-  const { BucketManager } = Proxyquire('../../../lib/store/bucket-manager', { '../buckets': { BUCKETS_TYPE: {}, Buckets: Buckets.Buckets } })
+  const { BucketManager } = Proxyquire('../../lib/store/bucket-manager', { '../buckets': { BUCKETS_TYPE: {}, Buckets: Buckets.Buckets } })
   const buckets = new BucketManager('path', { serializer })
   t.ok(bucketsStub.calledOnce, 'buckets constructor called')
   t.ok(buckets, 'created bucket manager')
