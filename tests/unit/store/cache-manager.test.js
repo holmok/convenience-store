@@ -21,7 +21,7 @@ function pre (cache) {
       }
     }
   })
-  context.CacheManager = Proxiquire('../../../lib/store/cache-manager', { crypto })
+  context.CacheManager = Proxiquire('../../../lib/store/cache-manager', { crypto }).CacheManager
   return context
 }
 

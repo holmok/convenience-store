@@ -16,7 +16,7 @@ Tape('BucketManager constructor and method', (t) => {
   bucketsMock.expects('delete').once().withArgs('bucket').returns()
   bucketsMock.expects('get').once().withArgs('bucket').returns('bucket')
 
-  const BucketManager = Proxyquire('../../../lib/store/bucket-manager', { '../buckets': { BUCKETS_TYPE: {}, Buckets: Buckets.Buckets } })
+  const { BucketManager } = Proxyquire('../../../lib/store/bucket-manager', { '../buckets': { BUCKETS_TYPE: {}, Buckets: Buckets.Buckets } })
   const buckets = new BucketManager('path', { serializer })
   t.ok(bucketsStub.calledOnce, 'buckets constructor called')
   t.ok(buckets, 'created bucket manager')
