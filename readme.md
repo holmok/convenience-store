@@ -4,6 +4,7 @@
 [![NPM Version](https://img.shields.io/npm/v/@convenience/store.svg?style=flat-square)](https://www.npmjs.com/package/@convenience/store)
 [![Build Status](https://travis-ci.com/holmok/convenience-store.svg?branch=master)](https://travis-ci.org/holmok/convenience-store)
 [![Dependency Status](https://david-dm.org/holmok/convenience-store/status.svg)](https://david-dm.org/holmok/convenience-store)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 
 
