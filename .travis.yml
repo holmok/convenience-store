@@ -6,4 +6,5 @@ branches:
   only:
     - master
 script:
+  - "npm ls"
   - "npm test"
