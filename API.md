@@ -163,7 +163,7 @@ Resets the cache for the store, clearing all items from cache.
 
 # Cache
 
-## BaseCache
+## BaseCache 
 
 `BaseCache` is a an unimplemented class that can be extended to create a new cache provider. Your class must implement the `get`, `set`, `del`, and `clear` methods. The constructor takes an `options` parameter. Example:
 
@@ -179,7 +179,7 @@ class FancyCache extends BaseCache {
   get (key) { return this.cache.goGetThe(key) }
   set (key, item) { this.cache.setThe(key,item) }
   del (key) { this.cache.deleteThe(key) }
-  clear () { this.cache.eraseEverthing() }
+  clear () { this.cache.eraseEverything() }
 }
 ```
 

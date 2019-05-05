@@ -1,5 +1,5 @@
 {
-  "name": "convenience-store",
+  "name": "@convenience/store",
   "version": "1.0.0",
   "description": "a node data store that is convenient",
   "main": "./lib/index.js",
