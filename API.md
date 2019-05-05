@@ -41,6 +41,21 @@ Creates a bucket for items.
   - `bucket`: [string] Name of bucket __(required)__
   - `type`: [Avro.Type|Object] Either an Avro type definition or an example object Avro can reflect to create an object. __(required)__
 
+### Throws
+This functions throws if you try to create a bucket that already exists, or if you have an invalid type.
+
+----
+
+### __store.existsBucket__
+```javascript
+store.existsBucket(bucket)
+```
+Determines if a bucket exists.
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
+#### Returns
+This function returns `true` if the bucket exists, otherwise `false`.
+
 ----
 
 ### __store.deleteBucket__
@@ -88,6 +103,19 @@ Retrieves an item from a bucket by its `id`.
   - `id`: [string|number|[value]] The `id` of the item to retrieve. __(required)__
 #### Returns
 This functions returns the item for the given `id` if it exists in the bucket, otherwise `undefined`.
+
+----
+
+### __store.exists__
+```javascript
+store.exists(bucket, id)
+```
+Determines if an item exists in a bucket by its `id` without fetching the whole object.
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
+  - `id`: [string|number|[value]] The `id` of the item to retrieve. __(required)__
+#### Returns
+This function returns `true` if the item exists, otherwise `false`.
 
 ----
 

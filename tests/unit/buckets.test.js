@@ -62,7 +62,7 @@ Tape('Buckets constructor and create bucket (no file) happy path', (t) => {
 })
 
 Tape('Buckets constructor and get bucket (with file) happy path', (t) => {
-  t.plan(3)
+  t.plan(4)
   const context = pre()
   const path = './test'
   const file = './test/bucket.list'
@@ -82,6 +82,9 @@ Tape('Buckets constructor and get bucket (with file) happy path', (t) => {
 
   const bucket = buckets.get('bucket')
   t.deepEqual(bucket, { bucket: 'bucket', path: 'path', type: 'type' }, 'get a bucket')
+
+  const exists = buckets.exists('bucket')
+  t.ok(exists, 'bucket exists')
 
   post(context)
   t.pass('success')
