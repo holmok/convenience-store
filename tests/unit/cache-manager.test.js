@@ -1,6 +1,6 @@
 const Tape = require('tape')
 const Sinon = require('sinon')
-const { BaseCache, DefaultCache } = require('../../../lib/cache')
+const { BaseCache, DefaultCache } = require('../../lib/cache')
 const Proxiquire = require('proxyquire').noCallThru()
 
 function pre (cache) {
@@ -21,7 +21,7 @@ function pre (cache) {
       }
     }
   })
-  context.CacheManager = Proxiquire('../../../lib/store/cache-manager', { crypto }).CacheManager
+  context.CacheManager = Proxiquire('../../lib/store/cache-manager', { crypto }).CacheManager
   return context
 }
 

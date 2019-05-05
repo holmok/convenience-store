@@ -1,7 +1,7 @@
 const Tape = require('tape')
 const Sinon = require('sinon')
 const Proxyquire = require('proxyquire').noCallThru()
-const Items = require('../../../lib/items')
+const Items = require('../../lib/items')
 
 Tape('ListManager constructor and methods', (t) => {
   t.plan(7)
@@ -13,7 +13,7 @@ Tape('ListManager constructor and methods', (t) => {
   context.bucket = { get () {} }
   context.bucketsMock = sandbox.mock(context.bucket)
   context.itemsStub = sandbox.stub(Items, 'Items').returns(context.items)
-  context.ListManager = Proxyquire('../../../lib/store/list-manager', { '../serializer': { Serializer: SerializerFake } }).ListManager
+  context.ListManager = Proxyquire('../../lib/store/list-manager', { '../serializer': { Serializer: SerializerFake } }).ListManager
 
   context.bucketsMock.expects('get').twice().returns({ type: 'type', path: 'path' })
   context.itemsMock.expects('compress').once().returns()
