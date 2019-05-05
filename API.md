@@ -50,7 +50,7 @@ This functions throws if you try to create a bucket that already exists, or if y
 ```javascript
 store.existsBucket(bucket)
 ```
-Creates a bucket for items.
+Determines if a bucket exists.
 #### Parameters
   - `bucket`: [string] Name of bucket __(required)__
 #### Returns
@@ -103,6 +103,19 @@ Retrieves an item from a bucket by its `id`.
   - `id`: [string|number|[value]] The `id` of the item to retrieve. __(required)__
 #### Returns
 This functions returns the item for the given `id` if it exists in the bucket, otherwise `undefined`.
+
+----
+
+### __store.exists__
+```javascript
+store.exists(bucket, id)
+```
+Determines if an item exists in a bucket by its `id` without fetching the whole object.
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
+  - `id`: [string|number|[value]] The `id` of the item to retrieve. __(required)__
+#### Returns
+This function returns `true` if the item exists, otherwise `false`.
 
 ----
 
