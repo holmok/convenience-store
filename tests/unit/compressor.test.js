@@ -1,4 +1,4 @@
-const Tape = require('Tape')
+const Tape = require('tape')
 const Snappy = require('snappy')
 const Sinon = require('sinon')
 

@@ -1,4 +1,4 @@
-const Tape = require('Tape')
+const Tape = require('tape')
 const Fs = require('fs')
 const Rimraf = require('rimraf')
 const { setup, allMethods, createItems } = require('./store.utils')

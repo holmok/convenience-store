@@ -1,5 +1,5 @@
 /* eslint no-new: 0 */
-const Tape = require('Tape')
+const Tape = require('tape')
 const Crypto = require('crypto')
 const Sinon = require('sinon')
 

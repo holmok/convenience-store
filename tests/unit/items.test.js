@@ -1,5 +1,5 @@
 /* eslint no-new: 0 */
-const Tape = require('Tape')
+const Tape = require('tape')
 const Sinon = require('sinon')
 const Avro = require('avsc')
 const Proxyquire = require('proxyquire').noCallThru()

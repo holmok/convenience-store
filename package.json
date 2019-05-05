@@ -1,12 +1,12 @@
 {
   "name": "@convenience/store",
   "version": "1.0.0",
-  "description": "a node data store that is convenient",
+  "description": "a simple native-node data store that is convenient",
   "main": "./lib/index.js",
   "scripts": {
     "test": "npm run test:lint && npm run test:integration && npm run test:nyc",
-    "test:unit": "./node_modules/.bin/tape tests/unit/*.test.js | tap-spec",
-    "test:integration": "./node_modules/.bin/tape ./tests/integration/*.test.js | tap-spec",
+    "test:unit": "tape tests/unit/*.test.js | tap-spec",
+    "test:integration": "tape ./tests/integration/*.test.js | tap-spec",
     "test:nyc": "nyc --check-coverage --lines 100 --functions 100 --branches 100 --reporter=html --reporter=text --reporter=text-summary npm run test:unit",
     "test:lint": "standard ./lib/**/*.js ./tests/**/*.js"
   },

@@ -1,5 +1,5 @@
 /* eslint no-new: 0 */
-const Tape = require('Tape')
+const Tape = require('tape')
 const Sinon = require('sinon')
 const { BaseCipher } = require('../../lib/cipher')
 const { BaseCompresser } = require('../../lib/compresser')
