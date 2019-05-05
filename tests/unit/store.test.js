@@ -21,7 +21,7 @@ function pre () {
   context.cacheManagerStubs = sandbox.createStubInstance(CacheManager.CacheManager)
   context.cacheManagerCtorStub = sandbox.stub(CacheManager, 'CacheManager').returns(context.cacheManagerStubs)
   context.uuidMock = sandbox.mock(Uuid)
-  context.itemsFake = { get () {}, create () {}, update () {}, delete () {} }
+  context.itemsFake = { get () {}, create () {}, update () {}, delete () {}, exists () {} }
   context.itemsMock = sandbox.mock(context.itemsFake)
   return context
 }
@@ -42,15 +42,17 @@ Tape('Store constructor', (t) => {
   t.pass('success')
 })
 
-Tape('Store createBucket/deleteBucket', (t) => {
-  t.plan(3)
+Tape('Store createBucket/deleteBucket/existsBucket', (t) => {
+  t.plan(4)
   const context = pre()
   const { Store } = require('../../lib/store')
   const store = new Store('path')
   store.createBucket('bucket', 'type')
+  store.existsBucket('bucket')
   store.deleteBucket('bucket', 'type')
   t.ok(context.bucketManagerStubs.create.calledOnce, 'bucketManagerStubs.create called')
   t.ok(context.bucketManagerStubs.delete.calledOnce, 'bucketManagerStubs.delete called')
+  t.ok(context.bucketManagerStubs.exists.calledOnce, 'bucketManagerStubs.exists called')
   post(context)
   t.pass('success')
 })
@@ -142,6 +144,38 @@ Tape('Store get with item not in cache', (t) => {
   t.ok(context.listManagerStubs.get.calledOnce, 'listManagerStubs.get called')
   t.ok(context.storeManagerStubs.get.calledOnce, 'storeManagerStubs.get called')
   t.ok(context.cacheManagerStubs.set.calledOnce, 'cacheManagerStubs.set called')
+  post(context)
+  t.pass('success')
+})
+
+Tape('Store item exists with item in cache', (t) => {
+  t.plan(4)
+  const context = pre()
+  context.cacheManagerStubs.get.returns({ item: true })
+  const { Store } = require('../../lib/store')
+  const store = new Store('path')
+  const item = store.exists('bucket', 1)
+  t.ok(item, 'item exists')
+  t.ok(context.cacheManagerStubs.createKey.calledOnce, 'cacheManagerStubs.createKey called')
+  t.ok(context.cacheManagerStubs.get.calledOnce, 'cacheManagerStubs.get called')
+  post(context)
+  t.pass('success')
+})
+
+Tape('Store item exists with item not in cache', (t) => {
+  t.plan(5)
+  const context = pre()
+  context.cacheManagerStubs.get.returns(undefined)
+  context.listManagerStubs.get.returns({ path: 'path', items: context.itemsFake, serializer: 'serializer' })
+  context.itemsMock.expects('exists').once().returns(true)
+  context.storeManagerStubs.get.returns({ item: true })
+  const { Store } = require('../../lib/store')
+  const store = new Store('path')
+  const item = store.exists('bucket', 1)
+  t.ok(item, 'item exists')
+  t.ok(context.cacheManagerStubs.createKey.calledOnce, 'cacheManagerStubs.createKey called')
+  t.ok(context.cacheManagerStubs.get.calledOnce, 'cacheManagerStubs.get called')
+  t.ok(context.listManagerStubs.get.calledOnce, 'listManagerStubs.get called')
   post(context)
   t.pass('success')
 })

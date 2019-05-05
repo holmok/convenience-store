@@ -63,7 +63,7 @@ Tape('Items constructor and create item (no file) happy path', (t) => {
 })
 
 Tape('Items constructor and get item (with file) happy path', (t) => {
-  t.plan(3)
+  t.plan(4)
   const context = pre()
 
   const path = 'test'
@@ -83,7 +83,9 @@ Tape('Items constructor and get item (with file) happy path', (t) => {
   t.ok(items, 'create an instance')
 
   const result = items.get(key)
+  const exists = items.exists(key)
 
+  t.ok(exists, 'item exists')
   t.ok(result, 'got item')
 
   post(context)

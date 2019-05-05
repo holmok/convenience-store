@@ -41,6 +41,21 @@ Creates a bucket for items.
   - `bucket`: [string] Name of bucket __(required)__
   - `type`: [Avro.Type|Object] Either an Avro type definition or an example object Avro can reflect to create an object. __(required)__
 
+### Throws
+This functions throws if you try to create a bucket that already exists, or if you have an invalid type.
+
+----
+
+### __store.existsBucket__
+```javascript
+store.existsBucket(bucket)
+```
+Creates a bucket for items.
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
+#### Returns
+This function returns `true` if the bucket exists, otherwise `false`.
+
 ----
 
 ### __store.deleteBucket__
