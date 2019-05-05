@@ -60,8 +60,8 @@ Tape('store test compress and filter', (t) => {
   const listEnd = Fs.statSync(listPath).size
   const dataEnd = Fs.statSync(dataPath).size
 
-  t.ok(listStart > listEnd, `List start (${listStart} bytes) > List end (${listEnd} bytes)`)
-  t.ok(dataStart > dataEnd, `Data start (${dataStart} bytes) > Data end (${dataEnd} bytes)`)
+  t.ok(listStart > listEnd, `List (${listPath}) start (${listStart} bytes) > List end (${listEnd} bytes)`)
+  t.ok(dataStart > dataEnd, `Data (${dataPath}) start (${dataStart} bytes) > Data end (${dataEnd} bytes)`)
 
   Rimraf.sync(path)
   t.pass('Success')

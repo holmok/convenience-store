@@ -64,7 +64,7 @@ function createItems (path, t) {
   for (const item of list) {
     store.create(bucket, item)
   }
-  t.pass('Crate all items worked')
+  t.pass('create all items worked')
   return { listPath, dataPath, store, bucket }
 }
 
