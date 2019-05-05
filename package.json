@@ -32,7 +32,7 @@
   "homepage": "https://github.com/holmok/convenience-store#readme",
   "devDependencies": {
     "mockdate": "^2.0.2",
-    "nyc": "^14.0.0",
+    "nyc": "^14.1.0",
     "proxyquire": "^2.1.0",
     "rimraf": "^2.6.3",
     "sinon": "^7.3.2",
