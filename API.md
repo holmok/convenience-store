@@ -19,14 +19,14 @@ Creates an instance of a store.
 
 #### Parameters
 
-- `path`: the file path to persist the data to disk. __(required)__
-- `options`: this are optional settings that change the behaviour for the store. _(optional)_
+- `path`: the file path to an existing directory to persist the data to disk. __(required)__
+- `options`: this are optional settings that change the behavior for the store. _(optional)_
     - `compress`: [Boolean] If `true` it data written to disk will be compressed or no compression if `false`.  _(optional, defaults to false)_ 
-    - `password`: [String] Password for Cipher.  If not set, no encryption is used when writting to disk. _(optional, defaults to undefined)_
-    - `cache`: [BaseCache] Instance of caching object. Included are:
+    - `password`: [String] Password for Cipher.  If not set, no encryption is used when writing to disk. _(optional, defaults to undefined)_
+    - `cache`: [BaseCache] Instance of caching object. Included are: _(optional, defaults to MemoryCache)_
        - `NoCache`: No caching, disk is hit for all gets.
-       - `MemoeryCache`: Holds all gets/sets in memory, no invalidation. __(default)__ 
-       - `LRUCache`: An in-memory cahce that is very configurable: [Read more](https://www.npmjs.com/package/lru-cache)
+       - `MemoryCache`: Holds all gets/sets in memory, no invalidation.
+       - `LRUCache`: An in-memory cache that is very configurable: [Read more](https://www.npmjs.com/package/lru-cache)
 
 ----
 
@@ -37,9 +37,9 @@ Creates an instance of a store.
 store.createBucket(bucket, type)
 ```
 Creates a bucket for items.
-#### Paramters
-  - `bukcet`: [string] Name of bucket __(required)__
-  - `type`: [Avro.Type|Object] Either an Avro type definition or an example object Avro can refect to create an object. __(required)__
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
+  - `type`: [Avro.Type|Object] Either an Avro type definition or an example object Avro can reflect to create an object. __(required)__
 
 ----
 
@@ -48,8 +48,8 @@ Creates a bucket for items.
 store.deleteBucket(bucket)
 ```
 Deletes a bucket.
-#### Paramters
-  - `bukcet`: [string] Name of bucket __(required)__
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
 
 ----
 
@@ -58,8 +58,8 @@ Deletes a bucket.
 store.compress(bucket)
 ```
 Shrinks data files by removing the empty spaces left by deleted items.
-#### Paramters
-  - `bukcet`: [string] Name of bucket __(required)__
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
 
 ----
 
@@ -68,8 +68,8 @@ Shrinks data files by removing the empty spaces left by deleted items.
 store.create(bucket, item)
 ```
 Adds an item to the bucket.
-#### Paramters
-  - `bukcet`: [string] Name of bucket __(required)__
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
   - `item`: [Object] The item to add to the bucket. _This item must be serializable based on the type passed to the bucket creation._  If the item has a `id` property, that will be used to key it in the bucket, otherwise a random string is used. __(required)__
 #### Returns
 This functions returns the `id` used to store item in the bucket.
@@ -83,8 +83,8 @@ This functions throws an error if the `id` is already used by an existing item i
 store.get(bucket, id)
 ```
 Retrieves an item from a bucket by its `id`.
-#### Paramters
-  - `bukcet`: [string] Name of bucket __(required)__
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
   - `id`: [string|number|[value]] The `id` of the item to retrieve. __(required)__
 #### Returns
 This functions returns the item for the given `id` if it exists in the bucket, otherwise `undefined`.
@@ -96,8 +96,8 @@ This functions returns the item for the given `id` if it exists in the bucket, o
 store.update(bucket, id, item)
 ```
 Updates an existing item in a bucket.
-#### Paramters
-  - `bukcet`: [string] Name of bucket __(required)__
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
   - `id`: [string|number|[value]] The `id` of the item to update. If this is different than the `id` property of the item it will item's `id` will be overwritten by this value. __(required)__
   - `item`: [Object] The item to replace in the bucket.  _This item must be serializable based on the type passed to the bucket creation._ __(required)__
 #### Throws
@@ -110,8 +110,8 @@ This functions throws an error if the `id` is does not exist for an item in the 
 store.delete(bucket, id)
 ```
 Removes an existing item from a bucket.
-#### Paramters
-  - `bukcet`: [string] Name of bucket __(required)__
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
   - `id`: [string|number|[value]] The `id` of the item to delete. __(required)
 
 ----
@@ -121,8 +121,8 @@ Removes an existing item from a bucket.
 store.getItems(bucket, {options})
 ```
 Gets a list of items from a bucket.
-#### Paramters
-  - `bukcet`: [string] Name of bucket __(required)__
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
   - `options`: [Object] Paging and order options. _(optional)_
     - `offset`: [number] 0 based position to start list. _(optional, defaults to 0)_  
     - `take`: [number] How many items to take. _(optional, defaults to 10)_
@@ -139,9 +139,9 @@ An object with the results: `{count,items}`
 store.filterItems(bucket, filter, {options})
 ```
 Gets a filtered list of items from a bucket.
-#### Paramters
-  - `bukcet`: [string] Name of bucket __(required)__
-  - `filter`: [Function] A function to evaluate against the items in the bucket. (Example: `(i) => !i.disabled` will only return items that have a `disabled` property that is "falsey") __(required)__
+#### Parameters
+  - `bucket`: [string] Name of bucket __(required)__
+  - `filter`: [Function] A function to evaluate against the items in the bucket. (Example: `(i) => !i.disabled` will only return items that have a `disabled` property that is "falsy") __(required)__
   - `options`: [Object] Paging and order options. _(optional)_
     - `offset`: [number] 0 based position to start list. _(optional, defaults to 0)_  
     - `take`: [number] How many items to take. _(optional, defaults to 10)_
@@ -209,6 +209,3 @@ const {Store, LRUCache} = require('@convenience/store')
 const options = { max: 500, maxAge: 1000 * 60 * 60 } // 500 items, expire in an hour
 const store = new Store('some/path', {cache: new LRUCache(options)})
 ```
-
-----
-
