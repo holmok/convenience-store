@@ -7,7 +7,7 @@
 
 
 
-Convenience Store exists because I got tired of writing of simple test data stores that did not persist.  I wasn't to the point were I needed MongoDB or Postgres.  When a new project I needed some place simple to put get and iterate some object.  So I decided to write this library.  Now storing objects and getting them is as easy as this:
+Convenience Store exists because I got tired of writing of simple test data stores that did not persist.  I wasn't to the point were I needed MongoDB or Postgres.  When working on a new project, I would need some place simple to put, get and iterate some objects.  So I decided to write this library.  Now storing objects and getting them is as easy as this:
 
 ```javascript
 const { Store, ORDER } = require('./lib')
