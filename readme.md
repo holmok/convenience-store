@@ -2,9 +2,9 @@
 ## a simple native-node data store that is convenient.
 
 [![NPM Version](https://img.shields.io/npm/v/@convenience/store.svg?style=flat-square)](https://www.npmjs.com/package/@convenience/store)
-[![Build Status](https://travis-ci.org/holmok/convenience-store?branch=master)](https://travis-ci.org/holmok/convenience-store)
-[![Dependency Status](https://david-dm.org/holmok/convenience-store?theme=shields.io)](https://david-dm.org/holmok/convenience-store)
-[![NPM Downloads](https://img.shields.io/npm/dm/@convenience/store.svg?style=flat-square)](https://npm-stat.com/charts.html?package=@convenience/store)
+[![Build Status](https://travis-ci.com/holmok/convenience-store.svg?branch=master)](https://travis-ci.org/holmok/convenience-store)
+[![Dependency Status](https://david-dm.org/holmok/convenience-store/status.svg)](https://david-dm.org/holmok/convenience-store)
+
 
 
 Convenience Store exists because I got tired of writing of simple test data stores that did not persist.  I wasn't to the point were I needed MongoDB or Postgres.  When a new project I needed some place simple to put get and iterate some object.  So I decided to write this library.  Now storing objects and getting them is as easy as this:
