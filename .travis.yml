@@ -1,4 +1,7 @@
 language: node_js
+env:
+  global:
+    - NODE_ENV=development
 node_js:
   - "8"
   - "stable"
